@@ -4,7 +4,7 @@
 
 (define (gen-grid width height alive)
   (for/list ([i height])
-    (sample (discrete-dist '(#t #f) `(,alive ,(- 1 alive))) width)))
+    (sample (discrete-dist '(#t #f) (list alive (- 1 alive))) width)))
 
 (define (neighbors grid x y)
   (for*/list ([i (in-range (- y 1) (+ y 2))]
