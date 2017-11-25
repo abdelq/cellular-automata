@@ -40,7 +40,7 @@
 (define (automata width height alive birth survival iterations)
   (let ([grid (generate width height alive)])
     (for ([i iterations])
-      (set! grid (iterate grid birth survival)))
+      (set grid (iterate grid birth survival)))
     grid))
 
 (pretty-print (automata 20 20 0.45 5 4 4))
