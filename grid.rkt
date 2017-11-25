@@ -30,9 +30,17 @@
       [(and (not alive?) (>= alive-neighbors birth)) #t]
       [else #f])))
 
-(let ([grid (generate 10 10 .5)]
-      [x 1]
-      [y 1])
-  (pretty-print grid)
-  (neighbors grid x y)
-  (next grid x y 4 5))
+(define (iterate grid birth survival)
+  (let ([height (length grid)]
+        [width (length (first grid))])
+    (for/list ([y height])
+      (for/list ([x width])
+        (next grid x y birth survival)))))
+
+(define (automata width height alive birth survival iterations)
+  (let ([grid (generate width height alive)])
+    (for ([i iterations])
+      (set! grid (iterate grid birth survival)))
+    grid))
+
+(pretty-print (automata 20 20 0.45 5 4 4))
