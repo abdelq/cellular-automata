@@ -22,8 +22,17 @@
       (list-ref (list-ref grid i) j)
       #t)))
 
+(define (next grid x y birth survival)
+  (let ([alive? (list-ref (list-ref grid y) x)]
+        [alive-neighbors (count identity (neighbors grid x y))])
+    (cond
+      [(and alive? (>= alive-neighbors survival)) #t]
+      [(and (not alive?) (>= alive-neighbors birth)) #t]
+      [else #f])))
+
 (let ([grid (generate 10 10 .5)]
       [x 1]
       [y 1])
   (pretty-print grid)
-  (neighbors grid x y))
+  (neighbors grid x y)
+  (next grid x y 4 5))
